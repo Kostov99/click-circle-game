@@ -1,61 +1,169 @@
-body{
- margin:0;
- font-family:Arial;
- background:#fff8e1;
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fff8e1;
 }
 
-header{
- background:linear-gradient(to right,#a1c4fd,#c2e9fb);
- padding:15px;
- text-align:center;
+/* ===== HEADER ===== */
+header {
+  text-align: center;
+  padding: 15px;
+  background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.lang-bar button{
- margin:5px;
- padding:6px 12px;
- border:none;
- border-radius:15px;
- background:#ff9800;
- color:white;
- cursor:pointer;
+header h1 {
+  margin: 5px 0 10px;
 }
 
-header input{
- width:80%;
- padding:10px;
- border:none;
- border-radius:20px;
+/* ===== LANGUAGE BAR ===== */
+.lang-bar {
+  margin-bottom: 10px;
 }
 
-.story-card{
- background:#e3f2fd;
- margin:15px auto;
- padding:20px;
- width:85%;
- border-radius:12px;
- cursor:pointer;
+.lang-bar button {
+  margin: 4px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 20px;
+  background: #ff9800;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
 }
 
-#readerPage{
- display:none;
- height:100vh;
- justify-content:center;
- align-items:center;
- background:#ffe0b2;
+.lang-bar button:hover {
+  background: #f57c00;
 }
 
-.reader{
- background:white;
- width:90%;
- max-width:500px;
- height:85vh;
- padding:20px;
- border-radius:20px;
- display:flex;
- flex-direction:column;
+/* ===== SEARCH ===== */
+header input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  margin-top: 10px;
+  font-size: 15px;
+  outline: none;
 }
 
-.story{
- flex:1;
- overflow:auto;
+/* ===== STORY LIST ===== */
+.story-card {
+  background: #e3f2fd;
+  width: 85%;
+  margin: 15px auto;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+.story-card:hover {
+  transform: scale(1.02);
+}
+
+.story-card h3 {
+  margin: 0 0 8px;
+}
+
+/* ===== READER PAGE ===== */
+#readerPage {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffe0b2, #ffccbc);
+}
+
+.reader {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  height: 85vh;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* ===== READER TOP ===== */
+.top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+/* ===== STORY CONTENT ===== */
+.story {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.story h2 {
+  color: #ff5722;
+  margin-bottom: 10px;
+}
+
+.story p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* ===== BOTTOM BUTTON BAR ===== */
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+}
+
+/* ===== COMMON BUTTON STYLE ===== */
+.bottom button {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 18px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  transition: all 0.25s ease;
+}
+
+.bottom button:active {
+  transform: scale(0.95);
+}
+
+/* ===== SHARE BUTTON ===== */
+.bottom button:nth-child(1) {
+  background: linear-gradient(135deg, #42a5f5, #1e88e5);
+}
+
+.bottom button:nth-child(1):hover {
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+}
+
+/* ===== HOME BUTTON ===== */
+.bottom button:nth-child(2) {
+  background: linear-gradient(135deg, #66bb6a, #388e3c);
+}
+
+.bottom button:nth-child(2):hover {
+  background: linear-gradient(135deg, #388e3c, #1b5e20);
+}
+
+/* ===== NEXT BUTTON ===== */
+.bottom button:nth-child(3) {
+  background: linear-gradient(135deg, #ff7043, #e64a19);
+}
+
+.bottom button:nth-child(3):hover {
+  background: linear-gradient(135deg, #e64a19, #bf360c);
 }
