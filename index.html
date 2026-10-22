@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image to PNG Converter | Zexfile</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: #080d18;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 650px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    margin: 20px 0 30px;
+}
+
+header h1 {
+    color: #22e6c3;
+    font-size: 28px;
+}
+
+header p {
+    color: #aab5c8;
+    line-height: 1.6;
+}
+
+.card {
+    background: #111a2b;
+    border: 1px solid #25354b;
+    border-radius: 15px;
+    padding: 22px;
+    margin-bottom: 20px;
+}
+
+.upload-area {
+    text-align: center;
+    border: 2px dashed #35465e;
+    border-radius: 12px;
+    padding: 30px 15px;
+}
+
+.upload-btn,
+.download-btn {
+    display: inline-block;
+    padding: 14px 22px;
+    background: #22e6c3;
+    color: #06151a;
+    border: none;
+    border-radius: 9px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#imageInput {
+    display: none;
+}
+
+#fileName {
+    color: #aab5c8;
+    overflow-wrap: anywhere;
+    margin-top: 15px;
+}
+
+h2 {
+    color: #22e6c3;
+    font-size: 20px;
+}
+
+.image-preview {
+    text-align: center;
+}
+
+.image-preview img {
+    display: block;
+    max-width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    margin: 15px auto;
+    border-radius: 8px;
+}
+
+.info {
+    background: #080f1d;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.info p {
+    color: #c4cede;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 18px;
+    border: none;
+    border-radius: 9px;
+    background: #22e6c3;
+    color: #06151a;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+#status {
+    color: #c4cede;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.download-btn {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.hint {
+    color: #aab5c8;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+footer {
+    text-align: center;
+    color: #8997ac;
+    font-size: 13px;
+    padding: 15px;
+}
+
+[hidden] {
+    display: none !important;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>🖼️ Image to PNG Converter</h1>
+        <p>Convert your images to PNG format quickly and easily.</p>
+    </header>
+
+    <section class="card">
+
+        <div class="upload-area">
+
+            <h2>Choose Your Image</h2>
+
+            <p class="hint">
+                Select an image from your phone or computer.
+            </p>
+
+            <label for="imageInput" class="upload-btn">
+                📂 Select Image
+            </label>
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/*"
+            >
+
+            <p id="fileName">No image selected</p>
+
+        </div>
+
+        <div id="originalSection" hidden>
+
+            <div class="image-preview">
+                <h2>Original Image</h2>
+                <img id="originalPreview" alt="Original image preview">
+            </div>
+
+            <div class="info">
+                <p>Original Format: <strong id="originalFormat">-</strong></p>
+                <p>Width: <strong id="originalWidth">-</strong> PX</p>
+                <p>Height: <strong id="originalHeight">-</strong> PX</p>
+                <p>File Size: <strong id="originalSize">-</strong></p>
+            </div>
+
+            <button id="convertBtn">
+                🔄 Convert to PNG
+            </button>
+
+            <p id="status" role="status" aria-live="polite"></p>
+
+        </div>
+
+    </section>
+
+    <section class="card" id="resultSection" hidden>
+
+        <h2>✅ PNG Image Ready!</h2>
+
+        <div class="image-preview">
+            <img id="pngPreview" alt="Converted PNG preview">
+        </div>
+
+        <div class="info">
+            <p>Format: <strong>PNG</strong></p>
+            <p>Width: <strong id="pngWidth">-</strong> PX</p>
+            <p>Height: <strong id="pngHeight">-</strong> PX</p>
+            <p>PNG File Size: <strong id="pngSize">-</strong></p>
+        </div>
+
+        <a
+            id="downloadBtn"
+            class="download-btn"
+            download="zexfile-image.png"
+        >
+            ⬇️ Download PNG
+        </a>
+
+    </section>
+
+    <footer>
+        <p>© Zexfile | Images are processed in your browser.</p>
+    </footer>
+
+</div>
+
+<script>
+const imageInput = document.getElementById("imageInput");
+const originalSection = document.getElementById("originalSection");
+const resultSection = document.getElementById("resultSection");
+
+const originalPreview = document.getElementById("originalPreview");
+const pngPreview = document.getElementById("pngPreview");
+
+const convertBtn = document.getElementById("convertBtn");
+const statusText = document.getElementById("status");
+const downloadBtn = document.getElementById("downloadBtn");
+
+let selectedImage = null;
+let originalURL = null;
+let pngURL = null;
+
+function formatBytes(bytes) {
+    if (bytes < 1024) {
+        return bytes + " B";
+    }
+
+    if (bytes < 1024 * 1024) {
+        return (bytes / 1024).toFixed(2) + " KB";
+    }
+
+    return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+}
+
+function loadImage(file) {
+    return new Promise((resolve, reject) => {
+        const image = new Image();
+        const url = URL.createObjectURL(file);
+
+        image.onload = () => {
+            resolve({
+                image: image,
+                url: url
+            });
+        };
+
+        image.onerror = () => {
+            URL.revokeObjectURL(url);
+            reject(new Error(
+                "This image format is not supported by your browser."
+            ));
+        };
+
+        image.src = url;
+    });
+}
+
+function convertCanvasToPNG(canvas) {
+    return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+            if (blob) {
+                resolve(blob);
+            } else {
+                reject(new Error("PNG conversion failed."));
+            }
+        }, "image/png");
+    });
+}
+
+imageInput.addEventListener("change", async function() {
+    const file = imageInput.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        alert("Please select a valid image file.");
+        imageInput.value = "";
+        return;
+    }
+
+    statusText.textContent = "Loading image...";
+
+    try {
+        const loaded = await loadImage(file);
+
+        if (originalURL) {
+            URL.revokeObjectURL(originalURL);
+        }
+
+        if (pngURL) {
+            URL.revokeObjectURL(pngURL);
+        }
+
+        originalURL = loaded.url;
+        selectedImage = loaded.image;
+        pngURL = null;
+
+        originalPreview.src = originalURL;
+
+        document.getElementById("fileName").textContent =
+            file.name;
+
+        document.getElementById("originalFormat").textContent =
+            file.type || "Unknown";
+
+        document.getElementById("originalWidth").textContent =
+            selectedImage.naturalWidth;
+
+        document.getElementById("originalHeight").textContent =
+            selectedImage.naturalHeight;
+
+        document.getElementById("originalSize").textContent =
+            formatBytes(file.size);
+
+        originalSection.hidden = false;
+        resultSection.hidden = true;
+
+        statusText.textContent = "";
+
+    } catch (error) {
+        statusText.textContent = error.message;
+    }
+});
+
+convertBtn.addEventListener("click", async function() {
+    if (!selectedImage) {
+        statusText.textContent = "Please select an image first.";
+        return;
+    }
+
+    convertBtn.disabled = true;
+    statusText.textContent = "Converting image to PNG...";
+
+    try {
+        const canvas = document.createElement("canvas");
+
+        canvas.width = selectedImage.naturalWidth;
+        canvas.height = selectedImage.naturalHeight;
+
+        const context = canvas.getContext("2d");
+
+        if (!context) {
+            throw new Error("Your browser cannot process this image.");
+        }
+
+        context.drawImage(
+            selectedImage,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        const blob = await convertCanvasToPNG(canvas);
+
+        if (pngURL) {
+            URL.revokeObjectURL(pngURL);
+        }
+
+        pngURL = URL.createObjectURL(blob);
+
+        pngPreview.src = pngURL;
+
+        document.getElementById("pngWidth").textContent =
+            canvas.width;
+
+        document.getElementById("pngHeight").textContent =
+            canvas.height;
+
+        document.getElementById("pngSize").textContent =
+            formatBytes(blob.size);
+
+        downloadBtn.href = pngURL;
+        downloadBtn.download = "zexfile-image.png";
+
+        resultSection.hidden = false;
+
+        statusText.textContent =
+            "Success! Your image has been converted to PNG.";
+
+    } catch (error) {
+        statusText.textContent =
+            error.message || "Something went wrong.";
+    } finally {
+        convertBtn.disabled = false;
+    }
+});
+
+window.addEventListener("beforeunload", function() {
+    if (originalURL) URL.revokeObjectURL(originalURL);
+    if (pngURL) URL.revokeObjectURL(pngURL);
+});
+</script>
+
+</body>
+</html>
