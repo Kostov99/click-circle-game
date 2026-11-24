@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d14">
+  <title>VOXORA — Your Voice. Your Rules.</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--bg:#080d14;--panel:#101923;--panel2:#0c141d;--line:#23313d;--text:#f2f7f8;--muted:#91a2ad;--mint:#58e6cf;--mint2:#b0fff0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% 0%,#12302f 0,transparent 34%),var(--bg);color:var(--text);font-family:Manrope,Arial,sans-serif;min-height:100vh}
+.shell{width:min(760px,calc(100% - 32px));margin:0 auto;padding:28px 0 34px}.top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1d2a34;padding-bottom:20px}.brand{font-size:23px;font-weight:800;letter-spacing:.16em;color:var(--text);text-decoration:none}.brand span{color:var(--mint)}.tag,.eyebrow,.step,.live-pill,footer,.fineprint,.ends,.audio-row,.download-row{font-family:"DM Mono",monospace}.tag{font-size:9px;letter-spacing:.13em;color:var(--muted)}
+.hero{padding:42px 2px 27px}.eyebrow{font-size:10px;letter-spacing:.13em;color:var(--mint);display:flex;align-items:center;gap:9px}.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint)}h1{font-size:clamp(42px,9vw,70px);line-height:.98;letter-spacing:-.065em;margin:18px 0 14px;font-weight:800}h1 em{font-style:normal;color:var(--mint)}.intro{color:var(--muted);font-size:14px;line-height:1.7;max-width:440px;margin:0}
+.panel{background:linear-gradient(145deg,rgba(18,29,40,.97),rgba(12,20,29,.97));border:1px solid var(--line);border-radius:20px;padding:23px;margin-top:16px;box-shadow:0 18px 55px #0002}.section-head{display:flex;align-items:center;justify-content:space-between}.step{font-size:9px;color:var(--mint);letter-spacing:.14em}.section-head h2{font-size:20px;margin:5px 0 0;letter-spacing:-.04em}.mic-icon{font-size:24px;color:var(--mint)}.record-area{display:grid;grid-template-columns:64px 1fr auto;gap:15px;align-items:center;margin-top:25px}.orb{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#1b4a48,#102b30 65%,#10202a);border:1px solid #32635f;color:var(--mint);font:10px "DM Mono";letter-spacing:.1em}.orb.active{animation:pulse 1.2s infinite}.record-copy strong{display:block;font-size:13px}.record-copy small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.primary,.secondary{border:0;border-radius:12px;padding:14px 17px;font:700 12px Manrope;cursor:pointer;min-height:46px}.primary{background:var(--mint);color:#06201d}.primary:disabled{opacity:.42;cursor:not-allowed}.secondary{background:#1a2934;color:#dce8eb;border:1px solid #30414e}.primary:active,.secondary:active{transform:scale(.98)}
+.wave{height:45px;display:flex;align-items:center;justify-content:center;gap:4px;margin:22px 0 10px;border-top:1px solid #1d2a34;border-bottom:1px solid #1d2a34}.wave span{width:3px;height:var(--h,10px);border-radius:4px;background:#37645f;opacity:.8}.wave.active span{animation:wave .65s ease-in-out infinite alternate}.wave span:nth-child(3n){--h:24px;animation-delay:.1s}.wave span:nth-child(4n){--h:16px;animation-delay:.25s}.wave span:nth-child(5n){--h:30px;animation-delay:.35s}
+.audio-row{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:10px}audio{width:100%;height:34px;filter:invert(.85) hue-rotate(125deg) saturate(.7)}.download-row{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:10px;color:var(--muted)}.text-link{color:var(--mint);text-decoration:none}.text-link.disabled{opacity:.35;pointer-events:none}
+.live-pill{font-size:9px;color:var(--mint);border:1px solid #2b5d56;border-radius:30px;padding:7px 9px;letter-spacing:.08em}.control-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px 22px;margin-top:27px}.control{min-width:0}.control.full{grid-column:1/-1}.control-title{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700}.control-title b{font:11px "DM Mono";color:var(--mint)}input[type=range]{width:100%;accent-color:var(--mint);margin:15px 0 7px;cursor:pointer}.ends{display:flex;justify-content:space-between;color:#748792;font-size:9px}.actions{display:flex;gap:10px;margin-top:28px}.actions .primary{flex:1}.fineprint{font-size:9px;line-height:1.6;color:#71838e;margin:14px 0 0}footer{text-align:center;color:#60717c;font-size:9px;letter-spacing:.08em;padding:25px 0 0}footer span{color:var(--mint)}
+@keyframes pulse{50%{box-shadow:0 0 0 9px #58e6cf12,0 0 25px #58e6cf55}}@keyframes wave{to{transform:scaleY(.35);opacity:.45}}
+@media(max-width:560px){.shell{width:min(100% - 24px,760px);padding-top:20px}.tag{font-size:8px}.panel{padding:18px;border-radius:16px}.record-area{grid-template-columns:54px 1fr;gap:12px}.orb{width:52px;height:52px}.record-area .primary{grid-column:1/-1;width:100%}.control-grid{gap:22px 14px}.actions{flex-direction:column}.download-row{font-size:9px}}
+
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <a class="brand" href="#" aria-label="VOXORA home">VOX<span>O</span>RA</a>
+      <span class="tag">YOUR VOICE. YOUR RULES.</span>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow"><i></i> BROWSER VOICE LAB · PROTOTYPE 01</div>
+      <h1>Find your<br><em>other voice.</em></h1>
+      <p class="intro">Record a short clip, shape the sound, and hear your voice transform.</p>
+    </section>
+
+    <section class="studio panel">
+      <div class="section-head">
+        <div><span class="step">01 / RECORD</span><h2>Voice capture</h2></div>
+        <span class="mic-icon">◉</span>
+      </div>
+      <div class="record-area">
+        <div class="orb" id="orb"><span>MIC</span></div>
+        <div class="record-copy">
+          <strong id="status">Ready when you are</strong>
+          <small id="hint">Allow microphone access to begin.</small>
+        </div>
+        <button id="recordBtn" class="primary">● &nbsp; Start recording</button>
+      </div>
+      <div class="wave" id="wave" aria-label="Audio waveform visualization">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="audio-row">
+        <span id="duration">00:00</span>
+        <audio id="audio" controls></audio>
+      </div>
+      <div class="download-row">
+        <span id="clipState">No recording yet</span>
+        <a id="download" class="text-link disabled" download="voxora-recording.webm">Download original ↗</a>
+      </div>
+    </section>
+
+    <section class="panel controls">
+      <div class="section-head">
+        <div><span class="step">02 / TRANSFORM</span><h2>Shape your sound</h2></div>
+        <span class="live-pill">LIVE PREVIEW</span>
+      </div>
+      <div class="control-grid">
+        <label class="control">
+          <span class="control-title">Pitch <b id="pitchOut">0</b></span>
+          <input id="pitch" type="range" min="-12" max="12" value="0">
+          <span class="ends"><small>Deeper</small><small>Higher</small></span>
+        </label>
+        <label class="control">
+          <span class="control-title">Speed <b id="speedOut">1.00×</b></span>
+          <input id="speed" type="range" min="50" max="150" value="100">
+          <span class="ends"><small>Slow</small><small>Fast</small></span>
+        </label>
+        <label class="control">
+          <span class="control-title">Bass <b id="bassOut">0 dB</b></span>
+          <input id="bass" type="range" min="-15" max="15" value="0">
+          <span class="ends"><small>Less</small><small>More</small></span>
+        </label>
+        <label class="control">
+          <span class="control-title">Treble <b id="trebleOut">0 dB</b></span>
+          <input id="treble" type="range" min="-15" max="15" value="0">
+          <span class="ends"><small>Soft</small><small>Bright</small></span>
+        </label>
+        <label class="control full">
+          <span class="control-title">Echo <b id="echoOut">0%</b></span>
+          <input id="echo" type="range" min="0" max="70" value="0">
+          <span class="ends"><small>Dry</small><small>Spacious</small></span>
+        </label>
+      </div>
+      <div class="actions">
+        <button id="playBtn" class="primary" disabled>▶ &nbsp; Play transformed voice</button>
+        <button id="resetBtn" class="secondary">↺ &nbsp; Reset effects</button>
+      </div>
+      <p class="fineprint">Tip: change the sliders while audio is playing to hear the effect update. Pitch and speed are linked in this browser prototype.</p>
+    </section>
+
+    <footer><span>VOXORA</span> · Prototype 01 · Audio stays in your browser.</footer>
+  </main>
+  <script>
+const $ = id => document.getElementById(id);
+const recordBtn=$('recordBtn'), statusText=$('status'), hint=$('hint'), audio=$('audio');
+let recorder=null, chunks=[], stream=null, startedAt=0, timer=null, audioContext=null, source=null, bassNode=null, trebleNode=null, delayNode=null, feedbackNode=null, dryGain=null, wetGain=null;
+let recording=false, objectUrl=null;
+
+function setStatus(a,b){statusText.textContent=a;hint.textContent=b;}
+function formatTime(ms){const s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+async function startRecording(){
+  if(!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder){setStatus('Browser not supported','Try the latest Chrome browser.');return;}
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks=[];
+    const options=MediaRecorder.isTypeSupported('audio/webm;codecs=opus')?{mimeType:'audio/webm;codecs=opus'}:{};
+    recorder=new MediaRecorder(stream,options);
+    recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+    recorder.onstop=()=>{
+      const blob=new Blob(chunks,{type:recorder.mimeType||'audio/webm'});
+      if(objectUrl)URL.revokeObjectURL(objectUrl);
+      objectUrl=URL.createObjectURL(blob);audio.src=objectUrl;
+      $('download').href=objectUrl;$('download').classList.remove('disabled');
+      $('clipState').textContent='Recording ready · '+formatTime(Date.now()-startedAt);
+      $('playBtn').disabled=false;setStatus('Recording captured','Use the controls below and press play.');
+      stream?.getTracks().forEach(t=>t.stop());stream=null;
+    };
+    recorder.start();recording=true;startedAt=Date.now();
+    recordBtn.textContent='■  Stop recording';$('orb').classList.add('active');$('wave').classList.add('active');
+    setStatus('Recording your voice…','Speak naturally. Tap stop when finished.');
+    $('clipState').textContent='Recording…';
+    timer=setInterval(()=>$('duration').textContent=formatTime(Date.now()-startedAt),250);
+  }catch(err){setStatus('Microphone access blocked','Allow microphone permission in your browser settings.');}
+}
+function stopRecording(){
+  if(!recording)return;recording=false;clearInterval(timer);$('duration').textContent=formatTime(Date.now()-startedAt);
+  recorder.stop();recordBtn.textContent='●  Record again';$('orb').classList.remove('active');$('wave').classList.remove('active');
+}
+recordBtn.addEventListener('click',()=>recording?stopRecording():startRecording());
+
+function setupAudioGraph(){
+  const Ctx=window.AudioContext||window.webkitAudioContext;
+  if(!Ctx)throw new Error('Web Audio is not supported in this browser');
+  if(!audioContext){
+    audioContext=new Ctx();source=audioContext.createMediaElementSource(audio);
+    bassNode=audioContext.createBiquadFilter();bassNode.type='lowshelf';bassNode.frequency.value=180;
+    trebleNode=audioContext.createBiquadFilter();trebleNode.type='highshelf';trebleNode.frequency.value=3000;
+    dryGain=audioContext.createGain();wetGain=audioContext.createGain();delayNode=audioContext.createDelay(1);feedbackNode=audioContext.createGain();
+    delayNode.delayTime.value=.24;feedbackNode.gain.value=.22;
+    source.connect(bassNode);bassNode.connect(trebleNode);
+    trebleNode.connect(dryGain);dryGain.connect(audioContext.destination);
+    trebleNode.connect(delayNode);delayNode.connect(feedbackNode);feedbackNode.connect(delayNode);
+    delayNode.connect(wetGain);wetGain.connect(audioContext.destination);
+  }
+  updateEffects();
+}
+function updateEffects(){
+  if(!audioContext)return;
+  bassNode.gain.value=+$('bass').value;trebleNode.gain.value=+$('treble').value;
+  wetGain.gain.value=+$('echo').value/100*.55;
+  // Playback rate shifts both pitch and duration. This is clearly labelled as a prototype limitation.
+  const pitchRatio=Math.pow(2,+$('pitch').value/12);
+  audio.playbackRate=(+$('speed').value/100)*pitchRatio;
+  $('pitchOut').textContent=(+$('pitch').value>0?'+':'')+$('pitch').value;
+  $('speedOut').textContent=(+$('speed').value/100).toFixed(2)+'×';
+  $('bassOut').textContent=$('bass').value+' dB';$('trebleOut').textContent=$('treble').value+' dB';$('echoOut').textContent=$('echo').value+'%';
+}
+['pitch','speed','bass','treble','echo'].forEach(id=>$(id).addEventListener('input',()=>{try{if(audioContext)updateEffects();else updateLabels();}catch(e){}}));
+function updateLabels(){
+ $('pitchOut').textContent=(+$('pitch').value>0?'+':'')+$('pitch').value;
+ $('speedOut').textContent=(+$('speed').value/100).toFixed(2)+'×';
+ $('bassOut').textContent=$('bass').value+' dB';$('trebleOut').textContent=$('treble').value+' dB';$('echoOut').textContent=$('echo').value+'%';
+}
+$('playBtn').addEventListener('click',async()=>{
+ if(!audio.src)return;
+ try{setupAudioGraph();await audioContext.resume();audio.currentTime=0;await audio.play();setStatus('Playing transformed voice','Adjust the sliders while listening.');}
+ catch(e){setStatus('Could not play audio',e.message||'Try again.');}
+});
+$('resetBtn').addEventListener('click',()=>{
+ $('pitch').value=0;$('speed').value=100;$('bass').value=0;$('treble').value=0;$('echo').value=0;
+ if(audioContext)updateEffects();else updateLabels();
+});
+audio.addEventListener('ended',()=>setStatus('Preview complete','Adjust effects and play it again.'));
+audio.addEventListener('pause',()=>{if(audio.currentTime>0&&audio.currentTime<audio.duration)setStatus('Preview paused','Press play to continue.');});
+updateLabels();
+
+</script>
+</body>
+</html>
