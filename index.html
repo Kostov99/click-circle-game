@@ -14,7 +14,7 @@
 .panel{background:linear-gradient(145deg,rgba(18,29,40,.97),rgba(12,20,29,.97));border:1px solid var(--line);border-radius:20px;padding:23px;margin-top:16px;box-shadow:0 18px 55px #0002}.section-head{display:flex;align-items:center;justify-content:space-between}.step{font-size:9px;color:var(--mint);letter-spacing:.14em}.section-head h2{font-size:20px;margin:5px 0 0;letter-spacing:-.04em}.mic-icon{font-size:24px;color:var(--mint)}.record-area{display:grid;grid-template-columns:64px 1fr auto;gap:15px;align-items:center;margin-top:25px}.orb{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#1b4a48,#102b30 65%,#10202a);border:1px solid #32635f;color:var(--mint);font:10px "DM Mono";letter-spacing:.1em}.orb.active{animation:pulse 1.2s infinite}.record-copy strong{display:block;font-size:13px}.record-copy small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.primary,.secondary{border:0;border-radius:12px;padding:14px 17px;font:700 12px Manrope;cursor:pointer;min-height:46px}.primary{background:var(--mint);color:#06201d}.primary:disabled{opacity:.42;cursor:not-allowed}.secondary{background:#1a2934;color:#dce8eb;border:1px solid #30414e}.primary:active,.secondary:active{transform:scale(.98)}
 .wave{height:45px;display:flex;align-items:center;justify-content:center;gap:4px;margin:22px 0 10px;border-top:1px solid #1d2a34;border-bottom:1px solid #1d2a34}.wave span{width:3px;height:var(--h,10px);border-radius:4px;background:#37645f;opacity:.8}.wave.active span{animation:wave .65s ease-in-out infinite alternate}.wave span:nth-child(3n){--h:24px;animation-delay:.1s}.wave span:nth-child(4n){--h:16px;animation-delay:.25s}.wave span:nth-child(5n){--h:30px;animation-delay:.35s}
 .audio-row{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:10px}audio{width:100%;height:34px;filter:invert(.85) hue-rotate(125deg) saturate(.7)}.download-row{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:10px;color:var(--muted)}.text-link{color:var(--mint);text-decoration:none}.text-link.disabled{opacity:.35;pointer-events:none}
-.live-pill{font-size:9px;color:var(--mint);border:1px solid #2b5d56;border-radius:30px;padding:7px 9px;letter-spacing:.08em}.control-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px 22px;margin-top:27px}.control{min-width:0}.control.full{grid-column:1/-1}.control-title{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700}.control-title b{font:11px "DM Mono";color:var(--mint)}input[type=range]{width:100%;accent-color:var(--mint);margin:15px 0 7px;cursor:pointer}.ends{display:flex;justify-content:space-between;color:#748792;font-size:9px}.actions{display:flex;gap:10px;margin-top:28px}.actions .primary{flex:1}.fineprint{font-size:9px;line-height:1.6;color:#71838e;margin:14px 0 0}footer{text-align:center;color:#60717c;font-size:9px;letter-spacing:.08em;padding:25px 0 0}footer span{color:var(--mint)}
+.live-pill{font-size:9px;color:var(--mint);border:1px solid #2b5d56;border-radius:30px;padding:7px 9px;letter-spacing:.08em}.control-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px 22px;margin-top:27px}.control{min-width:0}.control.full{grid-column:1/-1}.control-title{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700}.control-title b{font:11px "DM Mono";color:var(--mint)}input[type=range]{width:100%;accent-color:var(--mint);margin:15px 0 7px;cursor:pointer}.ends{display:flex;justify-content:space-between;color:#748792;font-size:9px}.child-btn{margin-top:12px;min-height:38px;padding:9px 13px;font-size:11px}.voice-note{display:block;color:#748792;font-size:9px;margin-top:8px}.actions{display:flex;gap:10px;margin-top:28px}.actions .primary{flex:1}.fineprint{font-size:9px;line-height:1.6;color:#71838e;margin:14px 0 0}footer{text-align:center;color:#60717c;font-size:9px;letter-spacing:.08em;padding:25px 0 0}footer span{color:var(--mint)}
 @keyframes pulse{50%{box-shadow:0 0 0 9px #58e6cf12,0 0 25px #58e6cf55}}@keyframes wave{to{transform:scaleY(.35);opacity:.45}}
 @media(max-width:560px){.shell{width:min(100% - 24px,760px);padding-top:20px}.tag{font-size:8px}.panel{padding:18px;border-radius:16px}.record-area{grid-template-columns:54px 1fr;gap:12px}.orb{width:52px;height:52px}.record-area .primary{grid-column:1/-1;width:100%}.control-grid{gap:22px 14px}.actions{flex-direction:column}.download-row{font-size:9px}}
 
@@ -65,11 +65,13 @@
         <span class="live-pill">LIVE PREVIEW</span>
       </div>
       <div class="control-grid">
-        <label class="control">
-          <span class="control-title">Pitch <b id="pitchOut">0</b></span>
-          <input id="pitch" type="range" min="-12" max="12" value="0">
-          <span class="ends"><small>Deeper</small><small>Higher</small></span>
-        </label>
+        <div class="control full voice-control">
+          <span class="control-title">Voice type <b id="pitchOut">Natural</b></span>
+          <input id="pitch" type="range" min="-8" max="8" value="0" step="1" aria-label="Female to male voice style">
+          <span class="ends"><small>♀ Female</small><small>♂ Male</small></span>
+          <button id="childBtn" class="secondary child-btn" type="button">♡ Child voice preset</button>
+          <small class="voice-note">Move the slider toward either side, or tap Child voice.</small>
+        </div>
         <label class="control">
           <span class="control-title">Speed <b id="speedOut">1.00×</b></span>
           <input id="speed" type="range" min="50" max="150" value="100">
@@ -95,7 +97,7 @@
         <button id="playBtn" class="primary" disabled>▶ &nbsp; Play transformed voice</button>
         <button id="resetBtn" class="secondary">↺ &nbsp; Reset effects</button>
       </div>
-      <p class="fineprint">Tip: change the sliders while audio is playing to hear the effect update. Pitch and speed are linked in this browser prototype.</p>
+      <p class="fineprint">Voice type gives an approximate female/child/male pitch effect. Change sliders during playback to preview. Voice conversion is limited in this browser prototype; pitch and speed affect playback duration.</p>
     </section>
 
     <footer><span>VOXORA</span> · Prototype 01 · Audio stays in your browser.</footer>
@@ -158,16 +160,19 @@ function updateEffects(){
   if(!audioContext)return;
   bassNode.gain.value=+$('bass').value;trebleNode.gain.value=+$('treble').value;
   wetGain.gain.value=+$('echo').value/100*.55;
-  // Playback rate shifts both pitch and duration. This is clearly labelled as a prototype limitation.
-  const pitchRatio=Math.pow(2,+$('pitch').value/12);
+  // Approximate voice-style presets: browser playback-rate shifting changes pitch and duration together.
+  const style=+$('pitch').value;
+  const semitones=style<0 ? 5 + (style/8)*(-1) : 9 - (style/8)*15;
+  const pitchRatio=Math.pow(2,semitones/12);
   audio.playbackRate=(+$('speed').value/100)*pitchRatio;
-  $('pitchOut').textContent=(+$('pitch').value>0?'+':'')+$('pitch').value;
+  $('pitchOut').textContent=style<=-6?'Female':style>=6?'Male':(Math.abs(style)<=1?'Child':'Mixed');
   $('speedOut').textContent=(+$('speed').value/100).toFixed(2)+'×';
   $('bassOut').textContent=$('bass').value+' dB';$('trebleOut').textContent=$('treble').value+' dB';$('echoOut').textContent=$('echo').value+'%';
 }
+$('childBtn').addEventListener('click',()=>{$('pitch').value=0;if(audioContext)updateEffects();else updateLabels();});
 ['pitch','speed','bass','treble','echo'].forEach(id=>$(id).addEventListener('input',()=>{try{if(audioContext)updateEffects();else updateLabels();}catch(e){}}));
 function updateLabels(){
- $('pitchOut').textContent=(+$('pitch').value>0?'+':'')+$('pitch').value;
+ const style=+$('pitch').value;$('pitchOut').textContent=style<=-6?'Female':style>=6?'Male':(Math.abs(style)<=1?'Child':'Mixed');
  $('speedOut').textContent=(+$('speed').value/100).toFixed(2)+'×';
  $('bassOut').textContent=$('bass').value+' dB';$('trebleOut').textContent=$('treble').value+' dB';$('echoOut').textContent=$('echo').value+'%';
 }
